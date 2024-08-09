@@ -108,7 +108,7 @@ class ProspectosProvider extends ChangeNotifier {
 
   List<ModelHistorialGestiones> gestiones = [];
 
-  getGestiones() async {
+  getHistorialGestiones() async {
     final resp =
         await ApiCampaigns.httpGet('/cliente/historial/gestiones/$idCliente');
     List<dynamic> dynamicList = resp;

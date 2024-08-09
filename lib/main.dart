@@ -1,5 +1,6 @@
 import 'package:campanas_grid/api/api_campaigns.dart';
 import 'package:campanas_grid/providers/citas_provider.dart';
+import 'package:campanas_grid/providers/gestiones_provider.dart';
 import 'package:campanas_grid/providers/prospectos_provider.dart';
 import 'package:campanas_grid/ui/shared/components/custom_scroll_behavior.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,14 @@ class AppState extends StatelessWidget {
           ),
           update: (_, prospectosProvider, citasProvider) =>
               citasProvider!..updateWith(prospectosProvider),
+        ),
+         ChangeNotifierProxyProvider<ProspectosProvider, GestionesProvider>(
+          lazy: false,
+          create: (context) => GestionesProvider(
+            Provider.of<ProspectosProvider>(context, listen: false),
+          ),
+          update: (_, prospectosProvider, gestionesProvider) =>
+              gestionesProvider!..updateWith(prospectosProvider),
         ),
          
       ],

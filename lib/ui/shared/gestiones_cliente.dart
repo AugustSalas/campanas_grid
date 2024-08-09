@@ -26,7 +26,7 @@ class _GestionesClienteState extends State<GestionesCliente> {
           });
         }
       });
-      client.getGestiones();
+      client.getHistorialGestiones();
     });
   } 
 

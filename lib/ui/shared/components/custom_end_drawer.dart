@@ -45,7 +45,7 @@ class _CustomEndDrawerState extends State<CustomEndDrawer>
           ),
         ),
         child: Column(
-          children: <Widget>[
+          children: [
             Container(
               color: const Color.fromARGB(255, 229, 238, 255),
               child: TabBar(

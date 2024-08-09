@@ -91,7 +91,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 style: StyleLabels.btnNavBar,
               ),
               onTap: () {
-                navigateTo(Flurorouter.resumenRoute);
+                  navigateTo(
+                    '${Flurorouter.gestionesRoute}?tenantId=${globals.tenantId}&user=${globals.user}&sucursal=${globals.sucursal}&type=${globals.type}&channel=${globals.channel}');
+
                 home.scaffoldKey.currentState?.closeDrawer();
               }),
           ListTile(
@@ -104,7 +106,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 style: StyleLabels.btnNavBar,
               ),
               onTap: () {
-                navigateTo(Flurorouter.resumenRoute);
+                 navigateTo(
+                    '${Flurorouter.citasRoute}?tenantId=${globals.tenantId}&user=${globals.user}&sucursal=${globals.sucursal}&type=${globals.type}&channel=${globals.channel}');
+
                 home.scaffoldKey.currentState?.closeDrawer();
               }),
           ListTile(

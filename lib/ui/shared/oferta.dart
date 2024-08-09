@@ -6,7 +6,6 @@ import 'package:campanas_grid/ui/shared/components/dialog_ofert.dart';
 import 'package:campanas_grid/ui/shared/components/row_text_ofertas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:universal_html/html.dart' as html;
 import 'package:provider/provider.dart';
 import 'dart:ui' as ui;
 import '../../router/globals.dart' as globals;

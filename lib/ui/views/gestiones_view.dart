@@ -1,21 +1,21 @@
+import 'package:campanas_grid/providers/gestiones_provider.dart';
 import 'package:campanas_grid/providers/prospectos_provider.dart';
-import 'package:campanas_grid/ui/shared/components/custom_end_drawer.dart';
+import 'package:campanas_grid/ui/shared/components/gestiones_end_drawer.dart';
 import 'package:campanas_grid/ui/shared/components/titulo_navegacion.dart';
 import 'package:campanas_grid/ui/shared/menu_screen.dart';
-import 'package:campanas_grid/ui/views/prospectos_view.dart';
+import 'package:campanas_grid/ui/shared/tables_gestiones.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TableInfoMenu extends StatefulWidget {
-  const TableInfoMenu({super.key});
+class GestionesView extends StatefulWidget {
+  const GestionesView({super.key});
 
   @override
-  State<TableInfoMenu> createState() => _TableInfoMenuState();
+  State<GestionesView> createState() => _GestionesViewState();
 }
 
-class _TableInfoMenuState extends State<TableInfoMenu> {
-
-   @override
+class _GestionesViewState extends State<GestionesView> {
+    @override
   void initState() {
     super.initState();
     Provider.of<ProspectosProvider>(context, listen: false).getSucursal();
@@ -23,13 +23,14 @@ class _TableInfoMenuState extends State<TableInfoMenu> {
   
   @override
   Widget build(BuildContext context) {
-    final prospectos = Provider.of<ProspectosProvider>(context);
+    final gestiones = Provider.of<GestionesProvider>(context);
     final size = MediaQuery.of(context).size;
-    return  Scaffold(
-      key: prospectos.prospectosScaffoldKey,
-      endDrawer: const CustomEndDrawer(),
+    return Scaffold(
+      key: gestiones.gestionesScaffoldKey,
+      endDrawer: const GestionesEndDrawer(),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
             const TitulosNavegacion(),
@@ -38,8 +39,8 @@ class _TableInfoMenuState extends State<TableInfoMenu> {
             ? const MenuScreen()
             : const SizedBox.shrink(),
             const SizedBox(height: 10),
-             prospectos.rolePerfil != ''
-             ? const ProspectosView()
+             gestiones.prospectosProvider.rolePerfil != ''
+             ? const TablesGestiones()
             : const Padding(
             padding: EdgeInsets.only(top: 30),
             child: Center(
@@ -48,8 +49,7 @@ class _TableInfoMenuState extends State<TableInfoMenu> {
               ),
             ),
           )
-          
-            ],
+          ],
         ),
       ),
     );

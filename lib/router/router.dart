@@ -1,10 +1,10 @@
 import 'package:campanas_grid/providers/home_provider.dart';
-import 'package:campanas_grid/ui/shared/citas_calendario.dart';
 import 'package:campanas_grid/ui/views/citas_view.dart';
+import 'package:campanas_grid/ui/views/gestiones_view.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:campanas_grid/ui/views/home.dart';
-import 'package:campanas_grid/ui/views/table_info_menu.dart';
+import 'package:campanas_grid/ui/views/prospectos_view.dart';
 import 'package:campanas_grid/ui/views/table_resumen_view.dart';
 import 'package:provider/provider.dart';
 import '../router/globals.dart' as globals;
@@ -17,6 +17,7 @@ class Flurorouter {
   static String prospectosRoute = '/prospectos';
   static String resumenRoute = '/resumen';
   static String citasRoute = '/citas';
+  static String gestionesRoute = '/gestiones';
 
   static void configureRoutes() {
     router.define('/',
@@ -33,6 +34,9 @@ class Flurorouter {
     
     router.define(citasRoute,
         handler: citas, transitionType: TransitionType.fadeIn);
+
+    router.define(gestionesRoute,
+        handler: gestiones, transitionType: TransitionType.fadeIn);
   }
 
   static final Handler _handlerUrl = Handler(
@@ -64,7 +68,7 @@ class Flurorouter {
     final home = Provider.of<HomeProvider>(context!);
     String result = prospectosRoute.replaceAll(RegExp('/'), '');
     home.screenMenu = '${result[0].toUpperCase()}${result.substring(1)}';
-    return const TableInfoMenu();
+    return const ProspectosView();
   });
 
    static Handler resumen = Handler(handlerFunc: (context, params) {
@@ -86,5 +90,18 @@ class Flurorouter {
     String result = citasRoute.replaceAll(RegExp('/'), '');
     home.screenMenu = '${result[0].toUpperCase()}${result.substring(1)}';
     return const CitasView();
+  });
+
+  static Handler gestiones = Handler(handlerFunc: (context, params) {
+    globals.sucursal = params['sucursal']?[0];
+    globals.user = params['user']?[0];
+    globals.tenantId = params['tenantId']?[0];
+    globals.type = params['type']?[0];
+    globals.channel = params['channel']?[0];
+    final home = Provider.of<HomeProvider>(context!);
+    String result = gestionesRoute.replaceAll(RegExp('/'), '');
+     home.screenMenu = '${result[0].toUpperCase()}${result.substring(1)}';
+
+    return const GestionesView();
   });
 }

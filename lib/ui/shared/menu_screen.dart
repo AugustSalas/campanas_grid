@@ -40,10 +40,12 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
             CustomButtonScreen(
               text: 'Gestiones',
+               changeColor:
+                  home.screenMenu == 'Gestiones' ? true : false,
               camFunc: () {
                 navigateTo(
-                  Flurorouter.resumenRoute,
-                );
+                  '${Flurorouter.gestionesRoute}?tenantId=${globals.tenantId}&user=${globals.user}&sucursal=${globals.sucursal}&type=${globals.type}&channel=${globals.channel}');
+           
               },
               tamBtnW: 180,
               icon: Icons.person,

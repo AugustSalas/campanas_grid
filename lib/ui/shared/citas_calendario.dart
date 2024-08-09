@@ -9,32 +9,21 @@ class CitasCalendario extends StatefulWidget {
   const CitasCalendario({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CitasCalendarioState createState() => _CitasCalendarioState();
 }
 
 class _CitasCalendarioState extends State<CitasCalendario> {
   CalendarController? calendarController;
-  late CitasProvider citasProvider;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final citasProvider = Provider.of<CitasProvider>(context, listen: false);
+      citasProvider.prospectosProvider.resetValues();
       citasProvider.getCitas();
     });
-  }
-
-   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    citasProvider =
-        Provider.of<CitasProvider>(context, listen: false);
-  }
-
-  @override
-  void dispose() {
-    citasProvider.prospectosProvider.resetValues();
-    super.dispose();
   }
 
   @override
