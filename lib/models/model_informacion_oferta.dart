@@ -31,6 +31,7 @@ class ModelInformacionOferta {
     final String comentarios;
     final List<String> telefonoDirecto;
     final List<String> telefonoMovil;
+    final String lastPhone;
 
     ModelInformacionOferta({
         required this.tasaOferta,
@@ -63,6 +64,7 @@ class ModelInformacionOferta {
         required this.comentarios,
         required this.telefonoDirecto,
         required this.telefonoMovil,
+        required this.lastPhone,
     });
 
     factory ModelInformacionOferta.fromJson(String str) => ModelInformacionOferta.fromMap(json.decode(str));
@@ -100,6 +102,7 @@ class ModelInformacionOferta {
         comentarios: json["comentarios"],
         telefonoDirecto: List<String>.from(json["telefonoDirecto"].map((x) => x)),
         telefonoMovil: List<String>.from(json["telefonoMovil"].map((x) => x)),
+        lastPhone: json["lastPhone"],
     );
 
     Map<String, dynamic> toMap() => {
@@ -133,6 +136,7 @@ class ModelInformacionOferta {
         "comentarios": comentarios,
         "telefonoDirecto": List<dynamic>.from(telefonoDirecto.map((x) => x)),
         "telefonoMovil": List<dynamic>.from(telefonoMovil.map((x) => x)),
+        "lastPhone":lastPhone,
     };
 }
 

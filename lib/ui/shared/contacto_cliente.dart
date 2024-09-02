@@ -1,6 +1,7 @@
 import 'package:campanas_grid/providers/prospectos_provider.dart';
 import 'package:campanas_grid/style_labels/style_labels.dart';
 import 'package:campanas_grid/ui/shared/buttons/custom_dropdown.dart';
+import 'package:campanas_grid/ui/shared/components/row_text_ofertas.dart';
 import 'package:campanas_grid/ui/shared/gestion_opciones.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,6 +66,13 @@ class _ContactoClienteState extends State<ContactoCliente> {
                   children: [
                     const SizedBox(height: 10),
                     Text('Contacto Cliente', style: StyleLabels.titulo),
+                    const SizedBox(height: 10),
+                    RowTextOfertas(
+                      title: 'Último télefono marcado',
+                      data: prospectos.currentJson!.lastPhone,
+                      width: constraints.maxWidth * 0.4,
+                      style: StyleLabels.detalle,
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

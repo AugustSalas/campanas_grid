@@ -24,7 +24,12 @@ class SearchText extends StatelessWidget {
   }
 
   BoxDecoration buildBoxDecoration() => BoxDecoration(
-    borderRadius: BorderRadius.circular(10),
-    color: Colors.grey.withOpacity(0.2),
+    
+    border: Border.all(
+      color: const Color.fromARGB(255, 68, 68, 68),
+      width: 1
+    ),
+    borderRadius: BorderRadius.circular(20),
+    color: Colors.white.withOpacity(0.2)
   );
 }

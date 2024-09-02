@@ -54,7 +54,7 @@ class _DialogOfertState extends State<DialogOfert> {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12)),
                 side: BorderSide(
-                  color: Color.fromARGB(255, 68, 68, 68),
+                  color: Color.fromARGB(255, 68, 68, 68), 
                   width: 2,
                 ),
               ),

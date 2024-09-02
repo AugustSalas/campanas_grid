@@ -1,11 +1,12 @@
 import 'package:campanas_grid/providers/home_provider.dart';
+import 'package:campanas_grid/ui/shared/components/dialog_buscador.dart';
+import 'package:campanas_grid/ui/shared/components/dialog_resumen.dart';
 import 'package:campanas_grid/ui/views/citas_view.dart';
 import 'package:campanas_grid/ui/views/gestiones_view.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:campanas_grid/ui/views/home.dart';
 import 'package:campanas_grid/ui/views/prospectos_view.dart';
-import 'package:campanas_grid/ui/views/table_resumen_view.dart';
 import 'package:provider/provider.dart';
 import '../router/globals.dart' as globals;
 
@@ -18,6 +19,7 @@ class Flurorouter {
   static String resumenRoute = '/resumen';
   static String citasRoute = '/citas';
   static String gestionesRoute = '/gestiones';
+  static String buscadorRoute = '/buscador';
 
   static void configureRoutes() {
     router.define('/',
@@ -37,6 +39,9 @@ class Flurorouter {
 
     router.define(gestionesRoute,
         handler: gestiones, transitionType: TransitionType.fadeIn);
+
+    router.define(buscadorRoute,
+        handler: buscador, transitionType: TransitionType.fadeIn);
   }
 
   static final Handler _handlerUrl = Handler(
@@ -77,7 +82,7 @@ class Flurorouter {
     globals.channel = params['channel']?[0];
     globals.tenantId = params['tenantId']?[0];
     globals.type = params['type']?[0];
-    return const TableResumenView();
+    return const DialogResumen();
   });
 
   static Handler citas = Handler(handlerFunc: (context, params) {
@@ -103,5 +108,14 @@ class Flurorouter {
      home.screenMenu = '${result[0].toUpperCase()}${result.substring(1)}';
 
     return const GestionesView();
+  });
+
+   static Handler buscador = Handler(handlerFunc: (context, params) {
+    globals.sucursal = params['sucursal']?[0];
+    globals.user = params['user']?[0];
+    globals.channel = params['channel']?[0];
+    globals.tenantId = params['tenantId']?[0];
+    globals.type = params['type']?[0];
+    return const DialogBuscador();
   });
 }

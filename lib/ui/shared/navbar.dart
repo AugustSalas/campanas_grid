@@ -25,6 +25,8 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     final prospectos = Provider.of<ProspectosProvider>(context);
 
+    final myController = TextEditingController();
+
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Padding(
@@ -79,16 +81,48 @@ class _NavBarState extends State<NavBar> {
                 },
               ),
               const Spacer(),
-              SizedBox(
-                width: constraints.maxWidth * 0.30,
-                child: SearchText(
-                  onChanged: (value) {
-                      setState(() {
-                        prospectos.changeSearchString(value);
-                      });
-                  },
-                  hint: 'Buscar Prospecto',
-                ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: constraints.maxWidth * 0.2,
+                    child: TextField(
+                      
+                      controller: myController,
+                      onChanged: (value) {
+                        prospectos.infoSearch = value;
+                      },
+                      decoration: const InputDecoration(
+                        label: Text('Buscar prospecto'),
+                        border:  OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Color.fromARGB(255, 217, 217, 217),
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Color.fromARGB(255, 217, 217, 217),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      navigateTo(
+                          '${Flurorouter.buscadorRoute}?tenantId=${globals.tenantId}&user=${globals.user}&sucursal=${globals.sucursal}&type=${globals.type}&channel=${globals.channel}');
+
+                      prospectos.getBuscador();
+                    },
+                    icon: const Icon(
+                      Icons.search,
+                      color: Color.fromARGB(255, 68, 68, 68),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(width: constraints.maxWidth * 0.035),
             ],

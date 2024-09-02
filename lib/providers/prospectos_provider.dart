@@ -1,5 +1,6 @@
 import 'package:campanas_grid/api/api_campaigns.dart';
 import 'package:campanas_grid/models/model_active_campaigns.dart';
+import 'package:campanas_grid/models/model_buscador.dart';
 import 'package:campanas_grid/models/model_codigo_gestiones.dart';
 import 'package:campanas_grid/models/model_ejecutivo_perfil.dart';
 import 'package:campanas_grid/models/model_historial_gestiones.dart';
@@ -15,9 +16,13 @@ class ProspectosProvider extends ChangeNotifier {
   final GlobalKey<ScaffoldState> prospectosScaffoldKey =
       GlobalKey<ScaffoldState>();
 
+  final GlobalKey<ScaffoldState> buscadorScaffoldKey =
+      GlobalKey<ScaffoldState>();
+
   int counter = 0;
    String? empresa;
    String? selectedSucursal;
+
 
   List<ModelProspectos> prospectos = [];
   String numeroSucursal = '0000';
@@ -164,4 +169,26 @@ class ProspectosProvider extends ChangeNotifier {
 
   GlobalKey<PaginatedDataTableState> keyT =
       GlobalKey<PaginatedDataTableState>();
+
+  
+  String infoSearch = '';
+  
+  List<ModelBuscador> buscador = [];
+
+    Future<void> getBuscador() async {
+    final resp = await ApiCampaigns.httpGet(
+      rolePerfil == 'EJECUTIVO' || rolePerfil == 'GERENTE'
+          ? '/cliente/buscar?info=$infoSearch&canal=${globals.channel}&sucursal=${globals.sucursal}'
+          : '/cliente/buscar?info=$infoSearch&canal=${globals.channel}&sucursal=1'
+    );
+    List<dynamic> dynamicList = resp;
+    List<ModelBuscador> buscadorList =
+        dynamicList.map((item) => ModelBuscador.fromMap(item)).toList();
+    buscador = buscadorList;
+    notifyListeners();
+  }
+
+
+
+
 }

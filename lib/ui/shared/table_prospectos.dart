@@ -3,6 +3,7 @@ import 'package:campanas_grid/style_labels/style_labels.dart';
 import 'package:campanas_grid/ui/datatable_source/prospectos_source.dart';
 import 'package:campanas_grid/ui/shared/buttons/custom_dropdown.dart';
 import 'package:campanas_grid/ui/shared/components/page_counter.dart';
+import 'package:campanas_grid/ui/shared/components/search_text.dart';
 import 'package:campanas_grid/ui/shared/components/selects_emp_suc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,8 @@ class _TableProspectosState extends State<TableProspectos> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      final prospectosProvider = Provider.of<ProspectosProvider>(context, listen: false);
+      final prospectosProvider =
+          Provider.of<ProspectosProvider>(context, listen: false);
       prospectosProvider.resetValues();
       prospectosProvider.getSucursal();
       prospectosProvider.getActiveCampaigns();
@@ -120,8 +122,19 @@ class _TableProspectosState extends State<TableProspectos> {
                 child: PaginatedDataTable(
                   key: prospectos.keyT,
                   header: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      SizedBox(
+                        width: constraints.maxWidth * 0.30,
+                        child: SearchText(
+                          onChanged: (value) {
+                            setState(() {
+                              prospectos.changeSearchString(value);
+                            });
+                          },
+                          hint: 'Buscar Prospecto',
+                        ),
+                      ),
+                      const Spacer(),
                       CustomDropdown(
                         hintDrop: 'Campañas',
                         onChanged: (value) {
@@ -139,6 +152,7 @@ class _TableProspectosState extends State<TableProspectos> {
                         selectedValue: selectedCampaigns,
                         data: prospectos.campaigns,
                       ),
+                      SizedBox(width: constraints.maxWidth * 0.01),
                       PageCounter(
                         add: addProspecto,
                         remove: removeProspecto,
