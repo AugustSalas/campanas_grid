@@ -33,6 +33,7 @@ class _CustomEndDrawerState extends State<CustomEndDrawer>
     return LayoutBuilder(
       builder: (context, constraints) {
       return Drawer(
+        
         width: constraints.maxWidth > 1282
             ? constraints.maxWidth * 0.32
             : constraints.maxWidth > 440

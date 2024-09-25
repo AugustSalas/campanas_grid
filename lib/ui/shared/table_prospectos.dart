@@ -115,51 +115,100 @@ class _TableProspectosState extends State<TableProspectos> {
                       ],
                     ),
               const SizedBox(height: 10),
+              size.width < 800
+              ? Row(
+                children: [
+                  SizedBox(width: constraints.maxWidth * 0.018),
+                  CustomDropdown(
+                    hintDrop: 'Campañas',
+                    onChanged: (value) {
+                      setState(() {
+                        selectedCampaigns = value as String;
+                        prospectos.nomCampana = selectedCampaigns!;
+                        prospectos.firtsrow;
+                        prospectos.getProspectos();
+                      });
+                    },
+                    width: size.width > 770
+                        ? constraints.maxWidth * 0.20
+                        : constraints.maxWidth * 0.45,
+                    height: 40,
+                    selectedValue: selectedCampaigns,
+                    data: prospectos.campaigns,
+                  ),
+                  const Spacer(),
+                  PageCounter(
+                    add: addProspecto,
+                    remove: removeProspecto,
+                  ),
+                ],
+              )
+              :const SizedBox.shrink(),
+              const SizedBox(height: 10),
               Scrollbar(
                 controller: horizontal,
                 thumbVisibility: true,
                 trackVisibility: true,
                 child: PaginatedDataTable(
                   key: prospectos.keyT,
-                  header: Row(
-                    children: [
-                      SizedBox(
-                        width: constraints.maxWidth * 0.30,
-                        child: SearchText(
-                          onChanged: (value) {
-                            setState(() {
-                              prospectos.changeSearchString(value);
-                            });
-                          },
-                          hint: 'Buscar Prospecto',
+                  header: size.width > 800
+                      ? Row(
+                          children: [
+                            SizedBox(
+                              width: constraints.maxWidth * 0.30,
+                              child: SearchText(
+                                onChanged: (value) {
+                                  setState(() {
+                                    prospectos.changeSearchString(value);
+                                  });
+                                },
+                                hint: 'Buscar registro',
+                              ),
+                            ),
+                            const Spacer(),
+                            CustomDropdown(
+                              hintDrop: 'Campañas',
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedCampaigns = value as String;
+                                  prospectos.nomCampana = selectedCampaigns!;
+                                  prospectos.firtsrow;
+                                  prospectos.getProspectos();
+                                });
+                              },
+                              width: size.width > 770
+                                  ? constraints.maxWidth * 0.20
+                                  : constraints.maxWidth * 0.45,
+                              height: 40,
+                              selectedValue: selectedCampaigns,
+                              data: prospectos.campaigns,
+                            ),
+                            SizedBox(width: constraints.maxWidth * 0.01),
+                            PageCounter(
+                              add: addProspecto,
+                              remove: removeProspecto,
+                            ),
+                            //SizedBox(width: 20),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            SizedBox(
+                              width: size.width > 800
+                                  ? constraints.maxWidth * 0.30
+                                  : constraints.maxWidth * 0.60,
+                              child: SearchText(
+                                onChanged: (value) {
+                                  setState(() {
+                                    prospectos.changeSearchString(value);
+                                  });
+                                },
+                                hint: 'Buscar registro',
+                              ),
+                            ),
+                            //SizedBox(width: 20),
+                          ],
                         ),
-                      ),
-                      const Spacer(),
-                      CustomDropdown(
-                        hintDrop: 'Campañas',
-                        onChanged: (value) {
-                          setState(() {
-                            selectedCampaigns = value as String;
-                            prospectos.nomCampana = selectedCampaigns!;
-                            prospectos.firtsrow;
-                            prospectos.getProspectos();
-                          });
-                        },
-                        width: size.width > 770
-                            ? constraints.maxWidth * 0.20
-                            : constraints.maxWidth * 0.45,
-                        height: 40,
-                        selectedValue: selectedCampaigns,
-                        data: prospectos.campaigns,
-                      ),
-                      SizedBox(width: constraints.maxWidth * 0.01),
-                      PageCounter(
-                        add: addProspecto,
-                        remove: removeProspecto,
-                      ),
-                      //SizedBox(width: 20),
-                    ],
-                  ),
                   controller: horizontal,
                   initialFirstRowIndex: prospectos.firtsrow,
                   sortColumnIndex: currentSortColumn,

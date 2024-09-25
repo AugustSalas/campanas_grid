@@ -11,8 +11,8 @@ class SearchText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      width: double.infinity,
+      height: 45,
+      //width: double.infinity,
       decoration: buildBoxDecoration(),
       child: TextField(
         decoration: CustomInputs.searchInputDecoration(hint: hint, icon: Icons.search_outlined),
@@ -26,10 +26,10 @@ class SearchText extends StatelessWidget {
   BoxDecoration buildBoxDecoration() => BoxDecoration(
     
     border: Border.all(
-      color: const Color.fromARGB(255, 68, 68, 68),
-      width: 1
+      color: const Color.fromARGB(255, 189, 186, 186),
+      width: 2
     ),
-    borderRadius: BorderRadius.circular(20),
+     borderRadius: const BorderRadius.all(Radius.circular(12)),
     color: Colors.white.withOpacity(0.2)
   );
 }

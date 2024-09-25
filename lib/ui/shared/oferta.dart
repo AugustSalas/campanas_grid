@@ -1,4 +1,7 @@
+import 'package:campanas_grid/providers/home_provider.dart';
 import 'package:campanas_grid/providers/prospectos_provider.dart';
+import 'package:campanas_grid/router/router.dart';
+import 'package:campanas_grid/services/navigation_service.dart';
 import 'package:campanas_grid/style_labels/style_labels.dart';
 import 'package:campanas_grid/ui/shared/buttons/button_detail.dart';
 import 'package:campanas_grid/ui/shared/components/aceptar_oferta.dart';
@@ -39,10 +42,15 @@ class OfertaState extends State<Oferta> {
     key: UniqueKey(),
   );
 
+  void navigateTo(String routeName) {
+    NavigationService.replaceTo(routeName);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final prospectos = Provider.of<ProspectosProvider>(context);
-
+    final home = Provider.of<HomeProvider>(context);
     final number = prospectos.currentJson == null
         ? ''
         : prospectos.currentJson!.idCliente.toString();
@@ -77,6 +85,25 @@ class OfertaState extends State<Oferta> {
                 child: Column(
                   children: [
                     const SizedBox(height: 10),
+                    home.screenMenu == 'Buscador'
+                        ? Row(
+                            children: [
+                              SizedBox(width: constraints.maxWidth * 0.025),
+                              IconButton(
+                                onPressed: () {
+                                   navigateTo(
+                          '${Flurorouter.prospectosRoute}?tenantId=${globals.tenantId}&user=${globals.user}&sucursal=${globals.sucursal}&type=${globals.type}&channel=${globals.channel}');
+                       
+                                 },
+                                icon: const Icon(
+                                  Icons.arrow_back_outlined,
+                                  color: Color.fromARGB(255, 0, 117, 213),
+                                  size: 30,
+                                ),
+                              ),
+                            ],
+                          )
+                        : const SizedBox.shrink(),
                     Text('Información Detallada', style: StyleLabels.titulo),
                     const SizedBox(height: 10),
                     Container(

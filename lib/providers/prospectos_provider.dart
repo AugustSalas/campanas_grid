@@ -110,6 +110,7 @@ class ProspectosProvider extends ChangeNotifier {
     infOfertas = ofertasList;
     notifyListeners();
   }
+  
 
   List<ModelHistorialGestiones> gestiones = [];
 
@@ -187,6 +188,9 @@ class ProspectosProvider extends ChangeNotifier {
     buscador = buscadorList;
     notifyListeners();
   }
+
+
+
 
 
 

@@ -1,10 +1,8 @@
 import 'package:campanas_grid/providers/prospectos_provider.dart';
-import 'package:expandable_search_bar/expandable_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:campanas_grid/providers/home_provider.dart';
 import 'package:campanas_grid/router/router.dart';
 import 'package:campanas_grid/services/navigation_service.dart';
-import 'package:campanas_grid/ui/shared/components/search_text.dart';
 import 'package:campanas_grid/style_labels/style_labels.dart';
 import 'package:provider/provider.dart';
 import '../../router/globals.dart' as globals;
@@ -20,6 +18,8 @@ class _NavBarState extends State<NavBar> {
   void navigateTo(String routeName) {
     NavigationService.replaceTo(routeName);
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -84,23 +84,23 @@ class _NavBarState extends State<NavBar> {
               Row(
                 children: [
                   SizedBox(
-                    width: constraints.maxWidth * 0.2,
+                    width: constraints.maxWidth * 0.25,
                     child: TextField(
-                      
                       controller: myController,
                       onChanged: (value) {
                         prospectos.infoSearch = value;
                       },
-                      decoration: const InputDecoration(
-                        label: Text('Buscar prospecto'),
-                        border:  OutlineInputBorder(
+                      decoration: InputDecoration(
+                        label: Text('Buscar prospecto',
+                            style: StyleLabels.dataColumn2),
+                        enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                           borderSide: BorderSide(
                             width: 2,
                             color: Color.fromARGB(255, 217, 217, 217),
                           ),
                         ),
-                        enabledBorder:  OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12)),
                           borderSide: BorderSide(
                             width: 2,
@@ -110,17 +110,22 @@ class _NavBarState extends State<NavBar> {
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      navigateTo(
-                          '${Flurorouter.buscadorRoute}?tenantId=${globals.tenantId}&user=${globals.user}&sucursal=${globals.sucursal}&type=${globals.type}&channel=${globals.channel}');
+                  Builder(
+                    builder: (context) {
+                      return IconButton(
+                        onPressed: () {
+                          prospectos.getBuscador();
+                          
+                          navigateTo(
+                              '${Flurorouter.buscadorRoute}?tenantId=${globals.tenantId}&user=${globals.user}&sucursal=${globals.sucursal}&type=${globals.type}&channel=${globals.channel}');
 
-                      prospectos.getBuscador();
-                    },
-                    icon: const Icon(
-                      Icons.search,
-                      color: Color.fromARGB(255, 68, 68, 68),
-                    ),
+                        },
+                        icon: const Icon(
+                          Icons.search,
+                          color: Color.fromARGB(255, 68, 68, 68),
+                        ),
+                      );
+                    }
                   ),
                 ],
               ),
@@ -161,6 +166,9 @@ class _NavBarMobileState extends State<NavBarMobile> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final home = Provider.of<HomeProvider>(context);
+    final prospectos = Provider.of<ProspectosProvider>(context);
+
+    final myController = TextEditingController();
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Padding(
@@ -195,23 +203,51 @@ class _NavBarMobileState extends State<NavBarMobile> {
                 ),
               ),
               const Spacer(),
-              size.width > 560
-                  ? SizedBox(
-                      width: constraints.maxWidth * 0.30,
-                      child: SearchText(
-                        onChanged: (value) {},
-                        hint: 'Buscar Prospecto',
-                      ))
-                  : ExpandableSearchBar(
-                      iconBackgroundColor:
-                          const Color.fromARGB(255, 225, 222, 222),
-                      iconColor: const Color.fromARGB(255, 108, 108, 108),
-                      backgroundColor: const Color.fromARGB(255, 236, 235, 235),
-                      // onTap: () => print(editTextController!.text.toString()),
-                      onTap: () {},
-                      hintText: "Buscar Prospecto",
-                      editTextController: editTextController,
+              Row(
+                children: [
+                  SizedBox(
+                    width: size.width > 500
+                        ? constraints.maxWidth * 0.35
+                        : constraints.maxWidth * 0.5,
+                    child: TextField(
+                      controller: myController,
+                      onChanged: (value) {
+                        prospectos.infoSearch = value;
+                      },
+                      decoration: InputDecoration(
+                        label: Text('Buscar prospecto',
+                            style: StyleLabels.dataColumn2),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Color.fromARGB(255, 217, 217, 217),
+                          ),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Color.fromARGB(255, 217, 217, 217),
+                          ),
+                        ),
+                      ),
                     ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      prospectos.getBuscador();
+                      navigateTo(
+                              '${Flurorouter.buscadorRoute}?tenantId=${globals.tenantId}&user=${globals.user}&sucursal=${globals.sucursal}&type=${globals.type}&channel=${globals.channel}');
+
+                    },
+                    icon: const Icon(
+                      Icons.search,
+                      color: Color.fromARGB(255, 68, 68, 68),
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(width: constraints.maxWidth * 0.035),
             ],
           ),

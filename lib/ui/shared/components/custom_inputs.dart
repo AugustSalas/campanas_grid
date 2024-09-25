@@ -1,3 +1,4 @@
+import 'package:campanas_grid/style_labels/style_labels.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,9 +14,10 @@ class CustomInputs {
       border: InputBorder.none,
       enabledBorder: InputBorder.none,
       hintText: hint,
-      prefixIcon: Icon(icon,color: const Color.fromARGB(255, 68, 68, 68)),
+      prefixIcon: Icon(icon,color: const Color.fromARGB(255, 68, 68, 68),),
       labelStyle: const TextStyle(color: Color.fromARGB(255, 68, 68, 68)),
-      hintStyle: const TextStyle(color: Color.fromARGB(255, 68, 68, 68)),
+      // hintStyle: const TextStyle(color: Color.fromARGB(255, 68, 68, 68)),
+      hintStyle:  StyleLabels.dataColumn2,
 
 
     );

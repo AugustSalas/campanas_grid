@@ -134,6 +134,7 @@ class _SelectsEmpSucState extends State<SelectsEmpSuc> {
                           ],
                         )
                       : const SizedBox.shrink(),
+                      
                 ],
               )
       ],
@@ -211,11 +212,15 @@ class _DropSearchSucursalesState extends State<DropSearchSucursales> {
       ),
       popupProps: const PopupProps.menu(
           searchFieldProps: TextFieldProps(), showSearchBox: true),
-      items: widget.empresa == null
-          ? []
-          : prospectos.sucursal
+      items: widget.empresa == 'AEF'
+          ? prospectos.sucursal
               .map((e) => '${e.descripcionSucursal} - ${e.noSucursal}')
-              .toList(),
+              .toList()
+          : widget.empresa == 'FISA' 
+          ? prospectos.sucursal
+              .map((e) => '${e.descripcionSucursal} - ${e.noSucursal}')
+              .toList()
+          : [],
       onChanged: (value) {
         setState(() {
           widget.onChanged2(value);

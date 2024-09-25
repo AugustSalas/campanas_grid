@@ -116,6 +116,9 @@ class Flurorouter {
     globals.channel = params['channel']?[0];
     globals.tenantId = params['tenantId']?[0];
     globals.type = params['type']?[0];
+    final home = Provider.of<HomeProvider>(context!);
+    String result = buscadorRoute.replaceAll(RegExp('/'), '');
+     home.screenMenu = '${result[0].toUpperCase()}${result.substring(1)}';
     return const DialogBuscador();
   });
 }
